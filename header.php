@@ -37,4 +37,4 @@
       </div>
     </div>
   </nav>
-  <main class="container d-flex">
+  <main class="container">
