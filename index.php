@@ -1,9 +1,15 @@
 <?php
 include_once('header.php');
-//include_once('login.php')
+var_dump($_POST);
+if(isset($_POST['message']) && isset($_POST['user_id']) && $_POST['password']===$_POST['confirm_password']){
+   echo('heello');
+}else{
+    $errorSign = 'error form sign';
+};
 if(isset($_POST['message']) && isset($_POST['user_id'])){
    
-}
+};
+
 ?>
 <section class="tchat container w-50 overflow-auto bg-light my-5">
     <h3 class="bg-primary">Chat</h3>

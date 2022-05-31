@@ -1,12 +1,4 @@
-<?php
-session_start();
-include_once 'variables.php';
-
-
-?>
-
-<?php include_once('header.php'); ?>
-
+<?php include_once('header.php');?>
 <?php if(isset($_SESSION['logged_user'])):?>   
     <p class="alert alert-success">Bonjour <?php echo(htmlspecialchars(($_SESSION['logged_user_name'])))?> et vous etes deja connecter !</p> 
 <?php else:?>
@@ -15,10 +7,6 @@ include_once 'variables.php';
         <div class="mb-3">
             <label for="email" class="form-label">Nom et prenom</label>
             <input type="text" class="form-control" id="email" name="fullname" aria-describedby="email-help" placeholder="John Doe" required>
-        </div>
-        <div class="mb-3">
-            <label for="email" class="form-label">Age</label>
-            <input type="number" class="form-control" id="email" name="age" aria-describedby="email-help" required>
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>

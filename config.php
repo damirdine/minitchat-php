@@ -14,14 +14,4 @@ try{
 }catch(Exception $e){
     die('Erreur : '.$e->getMessage());
 }
-
-
-$tchatSqlQuery= 'SELECT * FROM messages WHERE tchat_id = :tchat_id';
-$tchatStatement = $db->prepare($tchatSqlQuery);
-$tchatStatement->execute(
-    ['tchat_id' => 1,]
-);
-$tchat = $tchatStatement->fetchAll();
-
-
 ?>
