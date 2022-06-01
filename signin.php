@@ -1,7 +1,7 @@
 <?php include_once('header.php');
 
 if(isset($_POST['fullname']) && isset($_POST['email']) && $_POST['password']===$_POST['confirm_password']){
-    var_dump($_POST);
+    //var_dump($_POST);
     $checkUserSqlREquest = "SELECT * FROM users WHERE email = :email;";
     $checkUser = $db -> prepare($checkUserSqlREquest);
     $checkUser->execute(
@@ -10,29 +10,35 @@ if(isset($_POST['fullname']) && isset($_POST['email']) && $_POST['password']===$
         ]
     )or die(print_r($db->errorInfo()));
     $user = $checkUser->fetchAll();
-    echo('<br>'.$user);
 
-    //if(isset($_POST['email']) )
-    // $addUserSqlREquest = "INSERT INTO users (fullname,email,password) VALUES (:fullname, :email, :password); ";
-    // $addUser = $db -> prepare($addUserSqlREquest);
-    // $addUser->execute(
-    //     [
-    //         'fullname'=> $_POST['fullname'],
-    //         'email'=>$_POST['email'],
-    //         'password'=> password_hash($_POST['password'],PASSWORD_BCRYPT),
-    //     ]
-    // )or die(print_r($db->errorInfo()));
+    if(isset($_POST['email'])==$user['email']){
+        $alreadySign = "Vous etes deja inscrit avec cet email (". $_POST['email'].")";
+    }else{
+        $addUserSqlREquest = "INSERT INTO users (fullname,email,password) VALUES (:fullname, :email, :password); ";
+        $addUser = $db -> prepare($addUserSqlREquest);
+        $addUser->execute(
+        [
+            'fullname'=> $_POST['fullname'],
+            'email'=>$_POST['email'],
+            'password'=> password_hash($_POST['password'],PASSWORD_BCRYPT),
+        ]
+        )or die(print_r($db->errorInfo()));
 
-    // $userSigned=$_POST['fullname'];
-    // $_SESSION['logged_user_name'] = $userSigned;
-    // $_SESSION['logged_user'] = $_POST['email'];
+        $userSigned=$_POST['fullname'];
+        $_SESSION['logged_user_name'] = $userSigned;
+        $_SESSION['logged_user'] = $_POST['email'];
+    }
 
 }else{
     $errorSign = 'error form sign';
 };
 
 ?>
-<?php if(!isset($_SESSION['logged_user_name'])):?>   
+ <?php if(isset($alreadySign)):?>
+        <p class="alert alert-warning"><?php echo(htmlspecialchars($alreadySign))?>.</p>
+<?php endif; ?>    
+<?php if(!isset($_SESSION['logged_user_name'])):?>
+     
     <form class="mt-4" action='./signin.php' method="POST">
         <h1>Inscription</h1>
         <div class="mb-3">
