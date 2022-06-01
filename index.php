@@ -1,13 +1,16 @@
 <?php
 include_once('header.php');
-var_dump($_POST);
-if(isset($_POST['message']) && isset($_POST['user_id']) && $_POST['password']===$_POST['confirm_password']){
-   echo('heello');
-}else{
-    $errorSign = 'error form sign';
-};
+
+
 if(isset($_POST['message']) && isset($_POST['user_id'])){
-   
+    $addMsgSqlREquest = "INSERT INTO messages (user_id,message) VALUES (:user_id, :message); ";
+    $addMsg = $db -> prepare($addMsgSqlREquest);
+    $addMsg->execute(
+        [
+            'user_id'=> $_POST['user_id'],
+            'message'=>$_POST['message'],
+        ]
+    )or die(print_r($db->errorInfo()));
 };
 
 ?>
@@ -59,7 +62,7 @@ if(isset($_POST['message']) && isset($_POST['user_id'])){
         </div>
     </div>
     <hr>
-    <form class="d-flex justify-content-evenly" action="./index.php" method="post">
+    <form class="d-flex justify-content-evenly p-3 bg-dark" action="./index.php" method="post">
         <input class="w-75" type="text" name="message" >
         <input name="user_id" value="current_user" hidden>
         <input type="submit" class="btn btn-primary" value="Envoyer"> 
