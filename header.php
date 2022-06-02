@@ -29,7 +29,7 @@
           <a href='./signup.php' class="btn btn-primary bg-light text-primary me-2" type="button">inscription
           </a>
         <?php else:?>
-            <a href='./logout.php' class="btn btn-danger me-2" type="button">deconexion</a>
+          <a href='./logout.php' class="btn btn-danger me-2" type="button">deconexion</a>
         <?php endif;?>
       </div>
     </div>

@@ -43,7 +43,7 @@ if($_POST['password']!==$_POST['confirm_password']){
 <?php endif; ?>       
 <?php if(!isset($_SESSION['logged_user_name'])):?>
      
-    <form class="mt-4" action='./signin.php' method="POST">
+    <form class="mt-4" action='./signup.php' method="POST">
         <h1>Inscription</h1>
         <div class="mb-3">
             <label for="email" class="form-label">Nom et prenom</label>
