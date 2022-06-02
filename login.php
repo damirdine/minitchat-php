@@ -1,11 +1,24 @@
 <?php include_once('header.php');
-if(isset($_POST['password'])){
-    $passwordHash = password_hash($_POST['password'],PASSWORD_BCRYPT);
-    if(password_verify($_POST['password'],$passwordHash)){
-        echo('supper');
+if(isset($_POST['password']) && isset($_POST['email'])){
+    $checkUserSqlREquest = "SELECT * FROM users WHERE email = :email;";
+    $checkUser = $db -> prepare($checkUserSqlREquest);
+    $checkUser->execute(
+        [
+            'email'=>$_POST['email'],
+        ]
+    )or die(print_r($db->errorInfo()));
+    $user = $checkUser->fetch();
+    if($_POST['email']!==$user['email']){
+        $userNotExist = 'Aucun compte lié a cet email. Veillez Créé un compte';
+    }
+    if(password_verify($_POST['password'],$user['password'])){
+        $userLogged=$user['fullname'];
+        $_SESSION['logged_user_name'] = $userLogged;
+        $_SESSION['logged_user'] = $user['email'];
+    }else{
+        $passworNotMatch = 'Mot de passe incorrect';
     };
 }
-
 ?>
 
 <form class="container m-5 d-grid gap-4" method='POST' action='login.php'>
