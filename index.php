@@ -12,7 +12,10 @@ if(isset($_POST['message']) && isset($_POST['user_id'])){
     )or die(print_r($db->errorInfo()));
 };
 
+include_once('login.php');
+if(isset($_SESSION['logged_user'])){
 ?>
+
 <section class="tchat container w-50 overflow-auto bg-light my-5">
     <h3 class="bg-primary">Chat</h3>
     <div class="message container">
@@ -67,4 +70,5 @@ if(isset($_POST['message']) && isset($_POST['user_id'])){
         <input type="submit" class="btn btn-primary" value="Envoyer"> 
     </form>
 </section>
-<?php include_once('footer.php') ?>
+
+<?php };include_once('footer.php') ?>

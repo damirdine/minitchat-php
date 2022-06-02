@@ -21,19 +21,28 @@ if(isset($_POST['password']) && isset($_POST['email'])){
 }
 ?>
 
-<form class="container m-5 d-grid gap-4" method='POST' action='login.php'>
-    <h1>Connexion</h1>
-    <div class="form-group">
-        <label for="exampleInputEmail1">Mail</label>
-        <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="jhondoe@exemple.com">
-    </div>
-    <div class="form-group">
-        <label for="exampleInputPassword1">Mot de passe</label>
-        <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Mot de passe">
-    </div>
-    <div class="form-group">       
-        <button type="submit" class="btn btn-primary">Connexion</button>
-    </div>
-</form>
+<?php if(!isset($userLogged)):?>
+    <?php if(isset($userNotExist)):?>
+        <p class="alert alert-warning mt-4"><?php echo(htmlspecialchars($userNotExist))?>.</p>
+    <?php elseif(isset($passworNotMatch)):?>
+        <p class="alert alert-warning mt-4"><?php echo(htmlspecialchars($passworNotMatch))?>.</p>
+    <?php endif;?>
+    <form class="container m-5 d-grid gap-4" method='POST' action='index.php'>
+        <h1>Connexion</h1>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Mail</label>
+            <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="jhondoe@exemple.com">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Mot de passe</label>
+            <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Mot de passe">
+        </div>
+        <div class="form-group">       
+            <button type="submit" class="btn btn-primary">Connexion</button>
+        </div>
+    </form>
+<?php else:?>
+    <p class="alert alert-success mt-4"><?php echo('Bienvenue '.$_SESSION['logged_user_name'])?>.</p>
+<?php endif;?>
 
-<?php include_once('footer.php')?>
+<?php //include_once('footer.php')?>
