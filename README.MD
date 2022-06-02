@@ -9,3 +9,5 @@ Consolider mes connaissances après l'apprentissage du [PHP MySQL](https://githu
 ### Apprentissage : 
 - Hash mot de passe avec `password_hash('password',PASSWORD_BCRYPT)`.
 - Verifier correspondance `password_verify('inputPassword',$passwordHash)`.
+- Déploiement de l'application avec Heroku.
+- Mise en place de base de donnée sur serveur distant.
