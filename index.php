@@ -1,7 +1,6 @@
 <?php
 include_once('header.php');
 
-
 if(isset($_POST['message']) && isset($_POST['user_id'])){
     $addMsgSqlREquest = "INSERT INTO messages (user_id,message) VALUES (:user_id, :message); ";
     $addMsg = $db -> prepare($addMsgSqlREquest);

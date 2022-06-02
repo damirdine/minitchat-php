@@ -9,9 +9,9 @@ if(isset($_POST['fullname']) && isset($_POST['email']) && $_POST['password']===$
             'email'=>$_POST['email'],
         ]
     )or die(print_r($db->errorInfo()));
-    $user = $checkUser->fetchAll();
+    $user = $checkUser->fetch();
 
-    if(isset($_POST['email'])==$user['email']){
+    if($_POST['email']===$user['email']){
         $alreadySign = "Vous etes deja inscrit avec cet email (". $_POST['email'].")";
     }else{
         $addUserSqlREquest = "INSERT INTO users (fullname,email,password) VALUES (:fullname, :email, :password); ";
@@ -29,14 +29,18 @@ if(isset($_POST['fullname']) && isset($_POST['email']) && $_POST['password']===$
         $_SESSION['logged_user'] = $_POST['email'];
     }
 
-}else{
+}
+if($_POST['password']!==$_POST['confirm_password']){
     $errorSign = 'error form sign';
 };
 
 ?>
  <?php if(isset($alreadySign)):?>
-        <p class="alert alert-warning"><?php echo(htmlspecialchars($alreadySign))?>.</p>
-<?php endif; ?>    
+        <p class="alert alert-warning mt-4"><?php echo(htmlspecialchars($alreadySign))?>.</p>
+<?php endif; ?>
+<?php if(isset($errorSign)):?>
+        <p class="alert alert-warning mt-4"><?php echo(htmlspecialchars($errorSign))?>.</p>
+<?php endif; ?>       
 <?php if(!isset($_SESSION['logged_user_name'])):?>
      
     <form class="mt-4" action='./signin.php' method="POST">
@@ -57,7 +61,7 @@ if(isset($_POST['fullname']) && isset($_POST['email']) && $_POST['password']===$
         <button type="submit" class="btn btn-primary">S'inscrire</button>
     </form>
     <?php else:?>
-        <p class="alert alert-success">Bienvenue <?php echo(htmlspecialchars(($_SESSION['logged_user_name'])))?>.</p> 
+        <p class="alert alert-success mt-4">Bienvenue <?php echo(htmlspecialchars(($_SESSION['logged_user_name'])))?>.</p> 
 <?php endif; ?>
 
 <?php include_once 'footer.php'?>
