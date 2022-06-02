@@ -23,7 +23,7 @@ if(isset($_POST['password']) && isset($_POST['email'])){
 }
 ?>
 
-<?php if(!isset($userLogged)):?>
+<?php if(!isset($_SESSION['logged_user_name'])):?>
     <?php if(isset($userNotExist)):?>
         <p class="alert alert-warning mt-4"><?php echo(htmlspecialchars($userNotExist))?>.</p>
     <?php elseif(isset($passworNotMatch)):?>
