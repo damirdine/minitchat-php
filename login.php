@@ -16,6 +16,7 @@ if(isset($_POST['password']) && isset($_POST['email'])){
         $_SESSION['logged_user_name'] = $userLogged;
         $_SESSION['logged_user'] = $user['email'];
         $_SESSION['logged_user_id'] = $user['id'];
+
     }else{
         $passworNotMatch = 'Mot de passe incorrect';
     };
