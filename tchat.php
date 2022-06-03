@@ -1,7 +1,7 @@
 <?php 
 include_once 'header.php';
 
-$sqlMessagesQuery = 'SELECT u.fullname, m.message , m.date FROM users u INNER JOIN messages m ON u.id = m.user_id  ORDER BY m.date  DESC';
+$sqlMessagesQuery = 'SELECT u.fullname, m.message , m.date FROM users u INNER JOIN messages m ON u.id = m.user_id  ORDER BY m.date  ASC';
 $messagesStatement = $db->prepare($sqlMessagesQuery);
 $messagesStatement->execute() or die(print_r($db->errorInfo()));
 $messages = $messagesStatement->fetchAll();
@@ -20,12 +20,12 @@ if(isset($_POST['message']) && isset($_POST['user_id']) && isset($_SESSION['logg
 };
 ?>
 <?php if(isset($_SESSION['logged_user_name'])):?>
-    <section class="tchat container w-50 overflow-auto bg-light my-5">
+    <section class="tchat container overflow-auto bg-light my-5">
         <h3 class="bg-primary">Chat</h3>
         <div class="messages container">
             <?php foreach($messages as $message):?>
                 <?php if($message['fullname']===$_SESSION['logged_user_name']):?>
-                    <div class="message d-flex p-4 bg-warning">
+                    <div class="message p-4 bg-warning">
                 <?php else:?>
                     <div class="message p-4">
                 <?php endif;?>
