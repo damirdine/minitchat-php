@@ -1,4 +1,5 @@
 <?php 
+
 include_once 'header.php';
 
 $sqlMessagesQuery = 'SELECT u.fullname, m.message , m.date FROM users u INNER JOIN messages m ON u.id = m.user_id  ORDER BY m.date  ASC';
@@ -17,12 +18,14 @@ if(isset($_POST['message']) && isset($_POST['user_id']) && isset($_SESSION['logg
             'date' => htmlspecialchars($_POST['date'])
         ]
     )or die(print_r($db->errorInfo()));
+    header("Refresh:0");
 };
 ?>
+
 <?php if(isset($_SESSION['logged_user_name'])):?>
-    <section class="tchat container overflow-auto bg-light my-5">
+    <section class="tchat container bg-light my-5">
         <h3 class="bg-primary">Chat</h3>
-        <div class="messages container">
+        <div class="messages container" style="overflow: scroll;height:50vh">
             <?php foreach($messages as $message):?>
                 <?php if($message['fullname']===$_SESSION['logged_user_name']):?>
                     <div class="message p-4 bg-warning">
