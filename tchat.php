@@ -28,7 +28,7 @@ if(isset($_POST['message']) && isset($_POST['user_id']) && isset($_SESSION['logg
         <div class="messages container" style="overflow: scroll;height:50vh">
             <?php foreach($messages as $message):?>
                 <?php if($message['fullname']===$_SESSION['logged_user_name']):?>
-                    <div class="message p-4 bg-warning">
+                    <div class="message p-4 bg-warning" style="text-align:right">
                 <?php else:?>
                     <div class="message p-4">
                 <?php endif;?>
