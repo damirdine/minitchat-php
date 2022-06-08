@@ -24,12 +24,12 @@
       </button>
       <div class="d-flex">
         <?php if(!isset($_SESSION['logged_user'])):?>
-          <a href='./login.php' class="btn btn-primary me-2" type="button">connexion
+          <a href='./login.php' class="btn btn-primary me-2" type="button">Connexion
           </a>
-          <a href='./signup.php' class="btn btn-primary bg-light text-primary me-2" type="button">inscription
+          <a href='./signup.php' class="btn btn-primary bg-light text-primary me-2" type="button">Inscription
           </a>
         <?php else:?>
-          <a href='./logout.php' class="btn btn-danger me-2" type="button">deconexion</a>
+          <a href='./logout.php' class="btn btn-danger me-2" type="button">Déconnexion</a>
         <?php endif;?>
       </div>
     </div>
