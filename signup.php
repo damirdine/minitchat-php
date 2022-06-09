@@ -25,8 +25,18 @@ if(isset($_POST['fullname']) && isset($_POST['email']) && $_POST['password']===$
         )or die(print_r($db->errorInfo()));
 
         $userSigned=$_POST['fullname'];
-        $_SESSION['logged_user_name'] = $userSigned;
-        $_SESSION['logged_user'] = $_POST['email'];
+
+        $checkUserSqlREquest = "SELECT * FROM users WHERE email = :email;";
+        $checkUser = $db -> prepare($checkUserSqlREquest);
+        $checkUser->execute(
+            [
+                'email'=>$_POST['email'],
+            ]
+        )or die(print_r($db->errorInfo()));
+        $user = $checkUser->fetch();
+        $_SESSION['logged_user_name'] = $userLogged;
+        $_SESSION['logged_user'] = $user['email'];
+        $_SESSION['logged_user_id'] = $user['id'];
     }
 
 }
