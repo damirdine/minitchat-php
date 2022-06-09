@@ -18,13 +18,13 @@ if(isset($_POST['fullname']) && isset($_POST['email']) && $_POST['password']===$
         $addUser = $db -> prepare($addUserSqlREquest);
         $addUser->execute(
         [
-            'fullname'=> $_POST['fullname'],
-            'email'=>$_POST['email'],
+            'fullname'=> htmlspecialchars($_POST['fullname']) ,
+            'email'=> htmlspecialchars($_POST['email']) ,
             'password'=> password_hash($_POST['password'],PASSWORD_BCRYPT),
         ]
         )or die(print_r($db->errorInfo()));
 
-        $userSigned=$_POST['fullname'];
+        
 
         $checkUserSqlREquest = "SELECT * FROM users WHERE email = :email;";
         $checkUser = $db -> prepare($checkUserSqlREquest);
@@ -34,9 +34,11 @@ if(isset($_POST['fullname']) && isset($_POST['email']) && $_POST['password']===$
             ]
         )or die(print_r($db->errorInfo()));
         $user = $checkUser->fetch();
-        $_SESSION['logged_user_name'] = $userLogged;
+        $_SESSION['logged_user_name'] = $user['fullname'];
         $_SESSION['logged_user'] = $user['email'];
         $_SESSION['logged_user_id'] = $user['id'];
+        $userSigned=$user['fullname'];
+        header("Refresh:0; url=./");
     }
 
 }
@@ -53,7 +55,7 @@ if($_POST['password']!==$_POST['confirm_password']){
 <?php endif; ?>       
 <?php if(!isset($_SESSION['logged_user_name'])):?>
      
-    <form class="mt-4" action='./signup.php' method="POST">
+    <form class="mt-4" action='./index.php' method="POST">
         <h1>Inscription</h1>
         <div class="mb-3">
             <label for="email" class="form-label">Nom et prenom</label>
