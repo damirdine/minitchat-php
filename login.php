@@ -31,17 +31,15 @@ if(isset($_POST['password']) && isset($_POST['email'])){
     <?php endif;?>
     <form class="my-4" method='POST' action='index.php'>
         <h1>Connexion</h1>
-        <div class="form-group">
+        <div class="form-group mb-3">
             <label for="exampleInputEmail1">Mail</label>
             <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="jhondoe@exemple.com">
         </div>
-        <div class="form-group">
+        <div class="form-group mb-3">
             <label for="exampleInputPassword1">Mot de passe</label>
             <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Mot de passe">
-        </div>
-        <div class="form-group">       
-            <button type="submit" class="btn btn-primary">Connexion</button>
-        </div>
+        </div>       
+        <button type="submit" class="btn btn-primary">Connexion</button>
     </form>
 <?php else:?>
     <p class="alert alert-success mt-4"><?php echo('Bienvenue '.$_SESSION['logged_user_name'])?>.</p>
